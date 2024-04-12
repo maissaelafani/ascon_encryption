@@ -1,0 +1,33 @@
+
+vdel -lib LIB_RTL -all
+vdel -lib LIB_BENCH -all
+
+vlib LIB/LIB_RTL
+vmap LIB_RTL LIB/LIB_RTL
+vlib LIB/LIB_BENCH
+vmap LIB_BENCH LIB/LIB_BENCH
+	
+VLOG_OPTS="-sv -svinputport=net"
+
+vlog $VLOG_OPTS -work LIB_RTL ./SRC/RTL/ascon_pack.sv
+vlog $VLOG_OPTS -work LIB_RTL ./SRC/RTL/constant_addition.sv
+vlog $VLOG_OPTS -work LIB_RTL ./SRC/RTL/sbox.sv
+vlog $VLOG_OPTS -work LIB_RTL ./SRC/RTL/substitution_layer.sv
+vlog $VLOG_OPTS -work LIB_RTL ./SRC/RTL/diffusion.sv
+vlog $VLOG_OPTS -work LIB_RTL ./SRC/RTL/permutation.sv
+vlog $VLOG_OPTS -work LIB_RTL ./SRC/RTL/xor_up.sv
+vlog $VLOG_OPTS -work LIB_RTL ./SRC/RTL/xor_down.sv
+vlog $VLOG_OPTS -work LIB_RTL ./SRC/RTL/permutation_xor_up.sv
+vlog $VLOG_OPTS -work LIB_RTL ./SRC/RTL/permutation_xor.sv
+vlog $VLOG_OPTS -work LIB_RTL ./SRC/RTL/dff_64.sv
+vlog $VLOG_OPTS -work LIB_RTL ./SRC/RTL/dff_128.sv
+vlog $VLOG_OPTS -work LIB_RTL ./SRC/RTL/permutation_final.sv
+
+
+# Testbench
+vlog $VLOG_OPTS -work LIB_BENCH -L LIB_RTL ./SRC/BENCH/permutation_final_tb.sv
+
+VSIM_OPTS="-voptargs=+acc=rn"
+
+# Simulation
+vsim $VSIM_OPTS -L LIB_RTL LIB_BENCH.permutation_final_tb
