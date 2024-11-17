@@ -2,7 +2,7 @@
 The goal is to use the SystemVerilog hardware description language to design a circuit that encrypts a message of 256 bits using the ASCON128 algorithm. 
 The project is comprehensive and also includes all the tests that were performed on each component.
 
-For a more detailed description, please refer to the [report]( attached to the project (written in French only).
+For a more detailed description, please refer to the [report](RAPPORT_PCSN.pdf) attached to the project (written in French only).
 
 # Architecture of the project
 The files related to the SystemVerilog architectures are located in the "/SRC" directory. 
